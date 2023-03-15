@@ -744,98 +744,126 @@ class _SaleReportState extends State<SaleReport> {
           },
         ),
       ),
+      bottomNavigationBar: GestureDetector(
+        child: Container(
+          margin: const EdgeInsets.all(10.0),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10.0),
+            color: primaryColor,),
+          height: kBottomNavigationBarHeight - 5,
+          width: 150,
+          child: Center(
+            child: Text("Download PDF",
+              style: GoogleFonts.openSans(
+                  color: Colors.white, fontSize: 12, fontWeight: FontWeight.w600),
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        ),
+        onTap: () {
+          // Navigator.of(context).pushNamed("/pdfDownload");
+          saleReportsData.downloadFile(pdfUrl: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf");
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              behavior: SnackBarBehavior.floating,
+              backgroundColor: primaryColor,
+              content: Text("File will download in your downloads folder. please check"),
+            ),
+          );
+        },
+      ),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            Consumer<SaleReportNotifier>(builder: (context, data, _) {
-              return Row(
-                children: [
-                  Expanded(
-                    child: GestureDetector(
-                      onTap: () {
-                        saleReportsData.daily = true;
-                        saleReportsData.monthly = false;
-                        saleReportsData.yearly = false;
-                        saleReportsData.notifyListeners();
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: saleReportsData.daily == true ? primaryColor : Colors.grey.shade300,
-                        ),
-                        padding: EdgeInsets.all(10.0),
-                        margin: EdgeInsets.only(left: 10.0, top: 10.0),
-                        child: Align(
-                          alignment: AlignmentDirectional.centerStart,
-                          child: Center(
-                            child: Text("Daily",
-                              style: GoogleFonts.quicksand(
-                                  color: saleReportsData.daily == true ? Colors.white : Colors.black,
-                                  fontSize: 14, fontWeight: FontWeight.w600),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: GestureDetector(
-                      onTap: () {
-
-                        saleReportsData.daily = false;
-                        saleReportsData.monthly = true;
-                        saleReportsData.yearly = false;
-                        saleReportsData.notifyListeners();
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: saleReportsData.monthly == true ? primaryColor : Colors.grey.shade300,
-                        ),
-                        padding: EdgeInsets.all(10.0),
-                        margin: EdgeInsets.only(left: 1.0, top: 10.0),
-                        child: Align(
-                          alignment: AlignmentDirectional.centerStart,
-                          child: Center(
-                            child: Text("Monthly",
-                              style: GoogleFonts.quicksand(
-                                  color: saleReportsData.monthly == true ? Colors.white : Colors.black,
-                                  fontSize: 14, fontWeight: FontWeight.w600),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: GestureDetector(
-                      onTap: () {
-                        saleReportsData.daily = false;
-                        saleReportsData.monthly = false;
-                        saleReportsData.yearly = true;
-                        saleReportsData.notifyListeners();
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: saleReportsData.yearly == true ? primaryColor : Colors.grey.shade300,
-                        ),
-                        padding: EdgeInsets.all(10.0),
-                        margin: EdgeInsets.only(left: 1.0, right: 10.0, top: 10.0),
-                        child: Align(
-                          alignment: AlignmentDirectional.centerStart,
-                          child: Center(
-                            child: Text("Yearly",
-                              style: GoogleFonts.quicksand(
-                                  color: saleReportsData.yearly == true ? Colors.white : Colors.black,
-                                  fontSize: 14, fontWeight: FontWeight.w500),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              );
-            }),
+            // Consumer<SaleReportNotifier>(builder: (context, data, _) {
+            //   return Row(
+            //     children: [
+            //       Expanded(
+            //         child: GestureDetector(
+            //           onTap: () {
+            //             saleReportsData.daily = true;
+            //             saleReportsData.monthly = false;
+            //             saleReportsData.yearly = false;
+            //             saleReportsData.notifyListeners();
+            //           },
+            //           child: Container(
+            //             decoration: BoxDecoration(
+            //               color: saleReportsData.daily == true ? primaryColor : Colors.grey.shade300,
+            //             ),
+            //             padding: EdgeInsets.all(10.0),
+            //             margin: EdgeInsets.only(left: 10.0, top: 10.0),
+            //             child: Align(
+            //               alignment: AlignmentDirectional.centerStart,
+            //               child: Center(
+            //                 child: Text("Daily",
+            //                   style: GoogleFonts.quicksand(
+            //                       color: saleReportsData.daily == true ? Colors.white : Colors.black,
+            //                       fontSize: 14, fontWeight: FontWeight.w600),
+            //                 ),
+            //               ),
+            //             ),
+            //           ),
+            //         ),
+            //       ),
+            //       Expanded(
+            //         child: GestureDetector(
+            //           onTap: () {
+            //
+            //             saleReportsData.daily = false;
+            //             saleReportsData.monthly = true;
+            //             saleReportsData.yearly = false;
+            //             saleReportsData.notifyListeners();
+            //           },
+            //           child: Container(
+            //             decoration: BoxDecoration(
+            //               color: saleReportsData.monthly == true ? primaryColor : Colors.grey.shade300,
+            //             ),
+            //             padding: EdgeInsets.all(10.0),
+            //             margin: EdgeInsets.only(left: 1.0, top: 10.0),
+            //             child: Align(
+            //               alignment: AlignmentDirectional.centerStart,
+            //               child: Center(
+            //                 child: Text("Monthly",
+            //                   style: GoogleFonts.quicksand(
+            //                       color: saleReportsData.monthly == true ? Colors.white : Colors.black,
+            //                       fontSize: 14, fontWeight: FontWeight.w600),
+            //                 ),
+            //               ),
+            //             ),
+            //           ),
+            //         ),
+            //       ),
+            //       Expanded(
+            //         child: GestureDetector(
+            //           onTap: () {
+            //             saleReportsData.daily = false;
+            //             saleReportsData.monthly = false;
+            //             saleReportsData.yearly = true;
+            //             saleReportsData.notifyListeners();
+            //           },
+            //           child: Container(
+            //             decoration: BoxDecoration(
+            //               color: saleReportsData.yearly == true ? primaryColor : Colors.grey.shade300,
+            //             ),
+            //             padding: EdgeInsets.all(10.0),
+            //             margin: EdgeInsets.only(left: 1.0, right: 10.0, top: 10.0),
+            //             child: Align(
+            //               alignment: AlignmentDirectional.centerStart,
+            //               child: Center(
+            //                 child: Text("Yearly",
+            //                   style: GoogleFonts.quicksand(
+            //                       color: saleReportsData.yearly == true ? Colors.white : Colors.black,
+            //                       fontSize: 14, fontWeight: FontWeight.w500),
+            //                 ),
+            //               ),
+            //             ),
+            //           ),
+            //         ),
+            //       ),
+            //     ],
+            //   );
+            // }),
             Container(
               margin: EdgeInsets.only(left: 20.0, right: 20.0, top: 20.0, bottom: 10.0),
               alignment: Alignment.centerLeft,
@@ -1200,103 +1228,93 @@ class _SaleReportState extends State<SaleReport> {
                           child: Text("No items"),
                         );
                       } else {
-                        return ListView.builder(
-                          shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
-                          itemCount: saleReportsData.salereportModel.data.length,
-                          itemBuilder: (context, index) {
-                            return Container(
-                              margin: EdgeInsets.only(left: 10.0, right: 10.0, bottom: 10.0, top: 20.0),
-                              decoration: Ui.getBoxDecoration(color: primaryColor),
-                              child: Column(
-                                children: [
-                                  SizedBox(height: 10),
-                                  OrderElement(title: "Date", value: saleReportsData.salereportModel.data[index]!.tdate,id: ""),
-                                  SizedBox(height: 5),
-                                  OrderElement(title: "Name", value: saleReportsData.salereportModel.data[index]!.userId,id: ""),
-                                  SizedBox(height: 5),
-                                  OrderElement(title: "No of items", value: saleReportsData.salereportModel.data[index]!.noProducts,id: ""),
-                                  SizedBox(height: 5),
-                                  OrderElement(title: "Product Price", value: saleReportsData.salereportModel.data[index]!.totalProductPrice,id: ""),
-                                  SizedBox(height: 5),
-                                  OrderElement(title: "Discount", value: saleReportsData.salereportModel.data[index]!.totalDisc,id: ""),
-                                  // SizedBox(height: 5),
-                                  // OrderElement(title: "Sub Total", value: saleReportsData.salereportModel.data[index].subTotal,id: ""),
-                                  SizedBox(height: 5),
-                                  OrderElement(title: "Status", value: saleReportsData.salereportModel.data[index]!.orderStatus,id: ""),
-                                  SizedBox(height: 5),
-                                  OrderElement(title: "Actions", value: "invoice", id: saleReportsData.salereportModel.data[index]!.id),
-                                  SizedBox(height: 10),
-                                  SizedBox(height: 1, width: double.infinity, child: Container(color: Colors.grey),),
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0),
-                                          child: Text("Total Amount",
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 14),
-                                          ),
+                        return Container(
+                          margin: EdgeInsets.all(10.0),
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
+                            itemCount: saleReportsData.salereportModel.data.length,
+                            itemBuilder: (context, index) {
+                              return SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Text(index == 0 ? "DATE\n\n${saleReportsData.salereportModel.data[index]?.tdate}" : "${saleReportsData.salereportModel.data[index]?.tdate}",
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 14,
                                         ),
                                       ),
-                                      Expanded(
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(top: 10.0),
-                                          child: Text(" : "+saleReportsData.salereportModel.data[index]!.totalProductPrice,
-                                            style: TextStyle(
-                                                color: Colors.blue.shade700,
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 14),
-                                          ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Text(index == 0 ? "NO OF ITEMS\n\n${saleReportsData.salereportModel.data[index]?.noProducts}" : "${saleReportsData.salereportModel.data[index]?.noProducts}",
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 14,
                                         ),
                                       ),
-                                    ],
-                                  ),
-                                  SizedBox(height: 10),
-                                  SizedBox(height: 1, width: double.infinity, child: Container(color: Colors.grey),),
-                                  Consumer<SaleReportNotifier>(builder: (context, data, _) {
-                                    return data.isLoading ? Padding(
-                                      padding: const EdgeInsets.all(20.0),
-                                      child: Center(
-                                        child: CircularProgressIndicator(color: primaryColor,),
-                                      ),
-                                    ) : GestureDetector(
-                                      child: Center(
-                                        child: Container(
-                                          margin: const EdgeInsets.all(10.0),
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(10.0),
-                                            color: primaryColor,),
-                                          height: 35,
-                                          width: 150,
-                                          child: Center(
-                                            child: Text("Download PDF",
-                                              style: GoogleFonts.openSans(
-                                                  color: Colors.white, fontSize: 12, fontWeight: FontWeight.w600),
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-                                          ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Text(index == 0 ? "PRODUCT PRICE\n\n${saleReportsData.salereportModel.data[index]?.totalProductPrice}" : "${saleReportsData.salereportModel.data[index]?.totalProductPrice}",
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 14,
                                         ),
                                       ),
-                                      onTap: () {
-                                        // Navigator.of(context).pushNamed("/pdfDownload");
-                                        saleReportsData.downloadFile(pdfUrl: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf");
-                                        ScaffoldMessenger.of(context).showSnackBar(
-                                          SnackBar(
-                                            behavior: SnackBarBehavior.floating,
-                                            backgroundColor: primaryColor,
-                                            content: Text("File will download in your downloads folder. please check"),
-                                          ),
-                                        );
-                                      },
-                                    );
-                                  }),
-                                ],
-                              ),
-                            );
-                          },
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Text(index == 0 ? "DISCOUNT\n\n${saleReportsData.salereportModel.data[index]?.totalDisc}" : "${saleReportsData.salereportModel.data[index]?.totalDisc}",
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Text(index == 0 ? "SUB TOTAL\n\n${saleReportsData.salereportModel.data[index]?.subTotal}" : "${saleReportsData.salereportModel.data[index]?.subTotal}",
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Text(index == 0 ? "STATUS\n\n${saleReportsData.salereportModel.data[index]?.orderStatus}" : "${saleReportsData.salereportModel.data[index]?.orderStatus}",
+                                        style: TextStyle(
+                                          color: Colors.blue.shade700,
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Text(index == 0 ? "ACTIONS\n\n${saleReportsData.salereportModel.data[index]?.totalProductPrice}" : "${saleReportsData.salereportModel.data[index]?.totalProductPrice}",
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                          ),
                         );
                       }
                     } else if (snapshot.hasError) {
@@ -1345,53 +1363,49 @@ class OrderElement extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 5.0, bottom: 5.0),
-      child: Column(
+      child: Row(
         children: [
-          Row(
-            children: [
-              Expanded(
-                child: Align(
-                  alignment: AlignmentDirectional.centerStart,
-                  child: Text(
-                    title,
-                    style: GoogleFonts.quicksand(
-                        fontSize: 14, fontWeight: FontWeight.w600),
-                  ),
-                ),
+          Expanded(
+            child: Align(
+              alignment: AlignmentDirectional.centerStart,
+              child: Text(
+                title,
+                style: GoogleFonts.quicksand(
+                    fontSize: 14, fontWeight: FontWeight.w600),
               ),
-              Text(" : "),
-              Expanded(
-                child: Align(
-                  alignment: AlignmentDirectional.centerStart,
-                  child: value == "invoice" ? GestureDetector(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.grey,),
-                      height: 25,
-                      width: 100,
-                      child: Center(
-                        child: Text("Invoice",
-                          style: GoogleFonts.openSans(
-                              color: Colors.white, fontSize: 12, fontWeight: FontWeight.w600),
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
+            ),
+          ),
+          Text(" : "),
+          Expanded(
+            child: Align(
+              alignment: AlignmentDirectional.centerStart,
+              child: value == "invoice" ? GestureDetector(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.grey,),
+                  height: 25,
+                  width: 100,
+                  child: Center(
+                    child: Text("Invoice",
+                      style: GoogleFonts.openSans(
+                          color: Colors.white, fontSize: 12, fontWeight: FontWeight.w600),
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                        return InvoiceScreen(
-                            id: id,
-                            productName: "");
-                      }));
-                    },
-                  ) : Text(
-                    value,
-                    style: GoogleFonts.quicksand(
-                        fontSize: 14, fontWeight: FontWeight.w500),
                   ),
                 ),
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+                    return InvoiceScreen(
+                        id: id,
+                        productName: "");
+                  }));
+                },
+              ) : Text(
+                value,
+                style: GoogleFonts.quicksand(
+                    fontSize: 14, fontWeight: FontWeight.w500),
               ),
-            ],
+            ),
           ),
         ],
       ),

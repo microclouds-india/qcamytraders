@@ -28,7 +28,7 @@ class SaleReportNotifier extends ChangeNotifier {
   DateTime fromDate = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
   DateTime toDate = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
 
-  bool daily = false;
+  bool daily = true;
   bool monthly = false;
   bool yearly = false;
 
