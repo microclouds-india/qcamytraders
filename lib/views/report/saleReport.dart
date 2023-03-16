@@ -773,6 +773,7 @@ class _SaleReportState extends State<SaleReport> {
         },
       ),
       body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
@@ -1228,92 +1229,262 @@ class _SaleReportState extends State<SaleReport> {
                           child: Text("No items"),
                         );
                       } else {
-                        return Container(
-                          margin: EdgeInsets.all(10.0),
-                          child: ListView.builder(
-                            shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
-                            itemCount: saleReportsData.salereportModel.data.length,
-                            itemBuilder: (context, index) {
-                              return SingleChildScrollView(
-                                scrollDirection: Axis.horizontal,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Padding(
+                        return SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Column(
+                                children: [
+                                  Container(
+                                    margin: EdgeInsets.only(top: 10.0, left: 10.0),
+                                    child: Padding(
                                       padding: const EdgeInsets.all(10.0),
-                                      child: Text(index == 0 ? "DATE\n\n${saleReportsData.salereportModel.data[index]?.tdate}" : "${saleReportsData.salereportModel.data[index]?.tdate}",
+                                      child: Text("DATE",
                                         style: TextStyle(
                                           color: Colors.black,
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 14,
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 11,
                                         ),
                                       ),
                                     ),
-                                    Padding(
+                                    width: 100,
+                                    height: 30,
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.only(top: 10.0, left: 10.0),
+                                    child: Padding(
                                       padding: const EdgeInsets.all(10.0),
-                                      child: Text(index == 0 ? "NO OF ITEMS\n\n${saleReportsData.salereportModel.data[index]?.noProducts}" : "${saleReportsData.salereportModel.data[index]?.noProducts}",
+                                      child: Text("NO OF ITEMS",
                                         style: TextStyle(
                                           color: Colors.black,
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 14,
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 11,
                                         ),
                                       ),
                                     ),
-                                    Padding(
+                                    width: 100,
+                                    height: 30,
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.only(top: 10.0, left: 10.0),
+                                    child: Padding(
                                       padding: const EdgeInsets.all(10.0),
-                                      child: Text(index == 0 ? "PRODUCT PRICE\n\n${saleReportsData.salereportModel.data[index]?.totalProductPrice}" : "${saleReportsData.salereportModel.data[index]?.totalProductPrice}",
+                                      child: Text("PRODUCT PRICE",
                                         style: TextStyle(
                                           color: Colors.black,
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 14,
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 11,
                                         ),
                                       ),
                                     ),
-                                    Padding(
+                                    width: 100,
+                                    height: 30,
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.only(top: 10.0, left: 10.0),
+                                    child: Padding(
                                       padding: const EdgeInsets.all(10.0),
-                                      child: Text(index == 0 ? "DISCOUNT\n\n${saleReportsData.salereportModel.data[index]?.totalDisc}" : "${saleReportsData.salereportModel.data[index]?.totalDisc}",
+                                      child: Text("DISCOUNT",
                                         style: TextStyle(
                                           color: Colors.black,
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 14,
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 11,
                                         ),
                                       ),
                                     ),
-                                    Padding(
+                                    width: 100,
+                                    height: 30,
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.only(top: 10.0, left: 10.0),
+                                    child: Padding(
                                       padding: const EdgeInsets.all(10.0),
-                                      child: Text(index == 0 ? "SUB TOTAL\n\n${saleReportsData.salereportModel.data[index]?.subTotal}" : "${saleReportsData.salereportModel.data[index]?.subTotal}",
+                                      child: Text("SUB TOTAL",
                                         style: TextStyle(
                                           color: Colors.black,
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 14,
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 11,
                                         ),
                                       ),
                                     ),
-                                    Padding(
+                                    width: 100,
+                                    height: 30,
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.only(top: 10.0, left: 10.0),
+                                    child: Padding(
                                       padding: const EdgeInsets.all(10.0),
-                                      child: Text(index == 0 ? "STATUS\n\n${saleReportsData.salereportModel.data[index]?.orderStatus}" : "${saleReportsData.salereportModel.data[index]?.orderStatus}",
-                                        style: TextStyle(
-                                          color: Colors.blue.shade700,
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 14,
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(10.0),
-                                      child: Text(index == 0 ? "ACTIONS\n\n${saleReportsData.salereportModel.data[index]?.totalProductPrice}" : "${saleReportsData.salereportModel.data[index]?.totalProductPrice}",
+                                      child: Text("STATUS",
                                         style: TextStyle(
                                           color: Colors.black,
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 14,
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 11,
                                         ),
                                       ),
                                     ),
-                                  ],
+                                    width: 100,
+                                    height: 30,
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.only(top: 10.0, left: 10.0),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Text("ACTIONS",
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 11,
+                                        ),
+                                      ),
+                                    ),
+                                    width: 100,
+                                    height: 30,
+                                  ),
+                                ],
+                              ),
+                              // Container(
+                              //   margin: EdgeInsets.only(left: 20.0, right: 20.0),
+                              //   width: MediaQuery.of(context).size.width,
+                              //   color: Colors.grey,
+                              //   height: 1,
+                              // ),
+                              Container(
+                                height: 300,
+                                margin: EdgeInsets.only(bottom: 10.0, left: 10.0, right: 10.0, top: 10.0),
+                                child: ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: BouncingScrollPhysics(),
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: saleReportsData.salereportModel.data.length,
+                                  itemBuilder: (context, index) {
+                                    return Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(10.0),
+                                            child: Text("${saleReportsData.salereportModel.data[index]?.tdate}",
+                                              style: TextStyle(
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 11,
+                                              ),
+                                            ),
+                                          ),
+                                          width: 100,
+                                          height: 30,
+                                        ),
+                                        Container(
+                                          margin: EdgeInsets.only(top: 10.0),
+                                          width: 100,
+                                          height: 30,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(10.0),
+                                            child: Text("${saleReportsData.salereportModel.data[index]?.noProducts}",
+                                              style: TextStyle(
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 11,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Container(
+                                          margin: EdgeInsets.only(top: 10.0),
+                                          width: 100,
+                                          height: 30,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(10.0),
+                                            child: Text("${saleReportsData.salereportModel.data[index]?.totalProductPrice}",
+                                              style: TextStyle(
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 11,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Container(
+                                          margin: EdgeInsets.only(top: 10.0),
+                                          width: 100,
+                                          height: 30,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(10.0),
+                                            child: Text("${saleReportsData.salereportModel.data[index]?.totalDisc}",
+                                              style: TextStyle(
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 11,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Container(
+                                          margin: EdgeInsets.only(top: 10.0),
+                                          width: 100,
+                                          height: 30,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(10.0),
+                                            child: Text("${saleReportsData.salereportModel.data[index]?.subTotal}",
+                                              style: TextStyle(
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 11,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Container(
+                                          margin: EdgeInsets.only(top: 10.0),
+                                          width: 100,
+                                          height: 35,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(10.0),
+                                            child: Text("${saleReportsData.salereportModel.data[index]?.orderStatus}",
+                                              style: TextStyle(
+                                                color: Colors.blue.shade700,
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 11,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        GestureDetector(
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              color: Colors.grey,),
+                                            height: 25,
+                                            width: 100,
+                                            child: Center(
+                                              child: Text("Invoice",
+                                                style: GoogleFonts.openSans(
+                                                    color: Colors.white, fontSize: 12, fontWeight: FontWeight.w600),
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                            ),
+                                            margin: EdgeInsets.only(left: 5.0, right: 5.0, top: 10.0),
+                                          ),
+                                          onTap: () {
+                                            Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+                                              return InvoiceScreen(
+                                                  id: saleReportsData.salereportModel.data[index]!.id,
+                                                  productName: "");
+                                            }));
+                                          },
+                                        ),
+                                      ],
+                                    );
+                                  },
                                 ),
-                              );
-                            },
+                              ),
+                              // Container(
+                              //   margin: EdgeInsets.only(left: 20.0, right: 20.0, bottom: 20.0),
+                              //   width: MediaQuery.of(context).size.width,
+                              //   color: Colors.grey,
+                              //   height: 1,
+                              // ),
+                            ],
                           ),
                         );
                       }
