@@ -10,7 +10,7 @@ class SaleReportNetworking {
   late SaleReportModel salereportModel;
 
   Future<SaleReportModel> getSaleReport({required String token,
-    required String product_id,
+    // required String product_id,
     required String month,
     required String year,
     required String fromdate,
@@ -22,7 +22,7 @@ class SaleReportNetworking {
         "todate": todate,
         "month": month,
         "year": year,
-        "product_id": product_id,
+        // "product_id": product_id,
       }).timeout(const Duration(seconds: 10));
 
       if (request.statusCode == 200) {

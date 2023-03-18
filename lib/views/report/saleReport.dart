@@ -706,6 +706,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:qcamytraders/common/ui/Ui.dart';
 import 'package:qcamytraders/config/colors.dart';
+import 'package:qcamytraders/pdf/api/pdf_api.dart';
+import 'package:qcamytraders/pdf/api/pdf_invoice_api.dart';
+import 'package:qcamytraders/pdf/model/customer.dart';
+import 'package:qcamytraders/pdf/model/invoice.dart';
+import 'package:qcamytraders/pdf/model/supplier.dart';
 import 'package:qcamytraders/repository/products/notifier/products.notifier.dart';
 import 'package:qcamytraders/repository/saleReport/notifier/saleReport.notifier.dart';
 import 'package:qcamytraders/views/invoice/invoiceScreen.dart';
@@ -760,9 +765,50 @@ class _SaleReportState extends State<SaleReport> {
             ),
           ),
         ),
-        onTap: () {
+        onTap: () async {
           // Navigator.of(context).pushNamed("/pdfDownload");
-          saleReportsData.downloadFile(pdfUrl: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf");
+          // saleReportsData.downloadFile(pdfUrl: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf");
+          // ScaffoldMessenger.of(context).showSnackBar(
+          //   SnackBar(
+          //     behavior: SnackBarBehavior.floating,
+          //     backgroundColor: primaryColor,
+          //     content: Text("File will download in your downloads folder. please check"),
+          //   ),
+          // );
+          final date = DateTime.now();
+          final dueDate = date.add(Duration(days: 7));
+
+          final invoice = Invoice(
+            supplier: Supplier(
+              name: 'Name',
+              address: 'Address',
+              paymentInfo: '',
+            ),
+            customer: Customer(
+              name: 'Customer Name',
+              address: 'Customer Address',
+            ),
+            info: InvoiceInfo(
+              date: date,
+              dueDate: dueDate,
+              description: 'Description...',
+              number: '${DateTime.now().year}-9999',
+            ),
+            items: [
+              for(int i = 0; i<saleReportsData.salereportModel.data.length; i++)
+                InvoiceItem(
+                  date: saleReportsData.salereportModel.data[i]!.tdate,
+                  noOfItems: saleReportsData.salereportModel.data[i]!.noProducts,
+                  product: saleReportsData.salereportModel.data[i]!.totalProductPrice,
+                  discount: saleReportsData.salereportModel.data[i]!.totalDisc,
+                  subTotal: saleReportsData.salereportModel.data[i]!.subTotal,
+                  status: saleReportsData.salereportModel.data[i]!.orderStatus,
+                ),
+            ],
+          );
+
+          final pdfFile = await PdfInvoiceApi.generate(invoice);
+          PdfApi.saveInStorage(pdfFile);
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               behavior: SnackBarBehavior.floating,
@@ -865,75 +911,75 @@ class _SaleReportState extends State<SaleReport> {
             //     ],
             //   );
             // }),
-            Container(
-              margin: EdgeInsets.only(left: 20.0, right: 20.0, top: 20.0, bottom: 10.0),
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'Select Product',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            FutureBuilder(
-              future: productsData.getProducts(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return productsData.productsModel.data.isNotEmpty
-                      ? Consumer<ProductsNotifier>(builder: (context, data, _) {
-                    return Align(
-                      alignment: Alignment.centerLeft,
-                      child: Container(
-                        width: double.infinity,
-                        margin: const EdgeInsets.all(8),
-                        padding:
-                        const EdgeInsets.only(left: 8, right: 8),
-                        decoration: Ui.getBoxDecoration(
-                            color: primaryColor),
-                        child: DropdownButton(
-                          value: productsData.productName,
-                          underline: SizedBox(),
-                          iconEnabledColor: primaryColor,
-                          isExpanded: true,
-                          hint: Text(
-                            "Select Product",
-                            style:
-                            const TextStyle(color: Colors.black),
-                          ),
-                          items: productsData.productsModel.data.map((map) => DropdownMenuItem(
-                            value: map.id,
-                            child: Text(
-                              map.productName,
-                              style: const TextStyle(
-                                  color: Colors.black),
-                            ),
-                          ),
-                          ).toList(),
-                          style: const TextStyle(
-                            color: Colors.black,
-                          ),
-                          onChanged: (value) {
-                            productsData.productName = value.toString();
-                            saleReportsData.search = false;
-                            productsData.notifyListeners();
-                            saleReportsData.notifyListeners();
-                          },
-                        ),
-                      ),
-                    );
-                  }) : const Center(child: Text("No items"));
-                } else {
-                  return Container(
-                    margin: EdgeInsets.all(10),
-                    child: const CircularProgressIndicator(
-                      color: primaryColor,
-                    ),
-                  );
-                }
-              },
-            ),
+            // Container(
+            //   margin: EdgeInsets.only(left: 20.0, right: 20.0, top: 20.0, bottom: 10.0),
+            //   alignment: Alignment.centerLeft,
+            //   child: Text(
+            //     'Select Product',
+            //     style: TextStyle(
+            //       color: Colors.black,
+            //       fontSize: 15,
+            //       fontWeight: FontWeight.bold,
+            //     ),
+            //   ),
+            // ),
+            // FutureBuilder(
+            //   future: productsData.getProducts(),
+            //   builder: (context, snapshot) {
+            //     if (snapshot.hasData) {
+            //       return productsData.productsModel.data.isNotEmpty
+            //           ? Consumer<ProductsNotifier>(builder: (context, data, _) {
+            //         return Align(
+            //           alignment: Alignment.centerLeft,
+            //           child: Container(
+            //             width: double.infinity,
+            //             margin: const EdgeInsets.all(8),
+            //             padding:
+            //             const EdgeInsets.only(left: 8, right: 8),
+            //             decoration: Ui.getBoxDecoration(
+            //                 color: primaryColor),
+            //             child: DropdownButton(
+            //               value: productsData.productName,
+            //               underline: SizedBox(),
+            //               iconEnabledColor: primaryColor,
+            //               isExpanded: true,
+            //               hint: Text(
+            //                 "Select Product",
+            //                 style:
+            //                 const TextStyle(color: Colors.black),
+            //               ),
+            //               items: productsData.productsModel.data.map((map) => DropdownMenuItem(
+            //                 value: map.id,
+            //                 child: Text(
+            //                   map.productName,
+            //                   style: const TextStyle(
+            //                       color: Colors.black),
+            //                 ),
+            //               ),
+            //               ).toList(),
+            //               style: const TextStyle(
+            //                 color: Colors.black,
+            //               ),
+            //               onChanged: (value) {
+            //                 productsData.productName = value.toString();
+            //                 saleReportsData.search = false;
+            //                 productsData.notifyListeners();
+            //                 saleReportsData.notifyListeners();
+            //               },
+            //             ),
+            //           ),
+            //         );
+            //       }) : const Center(child: Text("No items"));
+            //     } else {
+            //       return Container(
+            //         margin: EdgeInsets.all(10),
+            //         child: const CircularProgressIndicator(
+            //           color: primaryColor,
+            //         ),
+            //       );
+            //     }
+            //   },
+            // ),
             Consumer<SaleReportNotifier>(builder: (context, data, _) {
               return saleReportsData.monthly == true ? Container(
                 margin: EdgeInsets.all(20.0),
@@ -1095,15 +1141,17 @@ class _SaleReportState extends State<SaleReport> {
                       content: Text("Please select day, month or year."),
                     ),
                   );
-                }else if(productsData.productName == null){
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      behavior: SnackBarBehavior.floating,
-                      backgroundColor: Colors.red,
-                      content: Text("Please select product."),
-                    ),
-                  );
-                }else{
+                }
+                // else if(productsData.productName == null){
+                //   ScaffoldMessenger.of(context).showSnackBar(
+                //     SnackBar(
+                //       behavior: SnackBarBehavior.floating,
+                //       backgroundColor: Colors.red,
+                //       content: Text("Please select product."),
+                //     ),
+                //   );
+                // }
+                else{
                   saleReportsData.search = true;
                   saleReportsData.notifyListeners();
                 }
@@ -1116,7 +1164,8 @@ class _SaleReportState extends State<SaleReport> {
                       todate: saleReportsData.daily == true ? saleReportsData.toDate.toString() : "",
                       month: saleReportsData.monthly == true ? formatDate(saleReportsData.month, [MM]) : "",
                       year: saleReportsData.yearly == true ? formatDate(saleReportsData.year, [yyyy]) : "",
-                      product_id: productsData.productName),
+                      // product_id: productsData.productName,
+                  ),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       saleReportsData.search = false;
@@ -1220,7 +1269,8 @@ class _SaleReportState extends State<SaleReport> {
                       todate: saleReportsData.daily == true ? saleReportsData.toDate.toString() : "",
                       month: saleReportsData.monthly == true ? formatDate(saleReportsData.month, [MM]) : "",
                       year: saleReportsData.yearly == true ? formatDate(saleReportsData.year, [yyyy]) : "",
-                      product_id: productsData.productName),
+                      // product_id: productsData.productName
+                  ),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       saleReportsData.search = false;

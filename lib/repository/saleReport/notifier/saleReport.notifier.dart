@@ -55,7 +55,8 @@ class SaleReportNotifier extends ChangeNotifier {
     required String todate,
     required String month,
     required String year,
-    required String product_id}) async {
+    // required String product_id,
+  }) async {
     loading(true);
 
     try {
@@ -66,7 +67,8 @@ class SaleReportNotifier extends ChangeNotifier {
           todate: todate,
           month: month,
           year: year,
-          product_id: product_id);
+          // product_id: product_id,
+      );
 
       loading(false);
       return salereportModel;
