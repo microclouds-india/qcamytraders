@@ -32,8 +32,7 @@ class _TraderAddProductState extends State<TraderAddProduct> {
   List<TextEditingController> _controllers = [TextEditingController()];
   final TextEditingController productNameController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
-  final TextEditingController specificationsController =
-      TextEditingController();
+  final TextEditingController specificationsController = TextEditingController();
   final TextEditingController mrpController = TextEditingController();
   final TextEditingController priceController = TextEditingController();
   final TextEditingController taxtypeController = TextEditingController();

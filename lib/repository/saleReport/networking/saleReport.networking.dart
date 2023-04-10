@@ -28,7 +28,6 @@ class SaleReportNetworking {
       if (request.statusCode == 200) {
         final response = json.decode(request.body);
         salereportModel = SaleReportModel.fromJson(response);
-        print(salereportModel.toString());
       }
     } catch (e) {
       return Future.error(e);

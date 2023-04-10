@@ -14,8 +14,8 @@ class SaleReportModel {
   String status;
   String grandtotal;
   String tax_total;
-  int cgst;
-  int sgst;
+  String cgst;
+  String sgst;
 
   factory SaleReportModel.fromJson(Map<String, dynamic> json) => SaleReportModel(
     message: json["message"] ?? "",

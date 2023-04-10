@@ -49,14 +49,17 @@ class SaleReportNotifier extends ChangeNotifier {
 
   loading(bool isLoading) {
     this.isLoading = isLoading;
+    notifyListeners();
   }
 
-  getSaleReport({required String fromdate,
+  getSaleReport({
+    required String fromdate,
     required String todate,
     required String month,
     required String year,
     // required String product_id,
   }) async {
+
     loading(true);
 
     try {
@@ -72,8 +75,23 @@ class SaleReportNotifier extends ChangeNotifier {
 
       loading(false);
       return salereportModel;
+    } on Exception catch (e) {
+      //catch late initialization error
+      final String? token = await localStorage.getToken();
+      salereportModel = await _salereportNetworking.getSaleReport(token: token!,
+        fromdate: fromdate,
+        todate: todate,
+        month: month,
+        year: year,
+        // product_id: product_id,
+      );
+
+      loading(false);
+      return salereportModel;
+      // return Future.error(e);
     } catch (e) {
       loading(false);
+      return Future.error(e.toString());
     }
   }
 

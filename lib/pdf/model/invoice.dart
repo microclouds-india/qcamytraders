@@ -19,7 +19,8 @@ class Invoice {
 class InvoiceInfo {
   final String description;
   final String number;
-  final DateTime date;
+  final String date;
+  // final DateTime date;
   // final double date;
   final DateTime dueDate;
 
